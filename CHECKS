@@ -1,3 +1,0 @@
-WAIT=10
-ATTEMPTS=3
-/admin simple_check
