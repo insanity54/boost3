@@ -8,4 +8,5 @@ module.exports = ({ env }) => ({
   webhooks: {
     populateRelations: env.bool('WEBHOOKS_POPULATE_RELATIONS', false),
   },
+  url: env('', 'https://sakuraboost3.sbtp.xyz')
 });
