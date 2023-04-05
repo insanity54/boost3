@@ -22,7 +22,7 @@
     "name": "CJ_Clippy"
   },
   "strapi": {
-    "uuid": false
+    "uuid": "06dfcf4b-c956-4627-b677-6b78f4f78a15"
   },
   "engines": {
     "node": ">=14.19.1 <=18.x.x",
