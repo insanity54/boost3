@@ -19,7 +19,7 @@
     "pg": "^8.10.0"
   },
   "author": {
-    "name": "CJ_Clippy"
+    "name": "@CJ_Clippy"
   },
   "strapi": {
     "uuid": false
