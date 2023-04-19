@@ -39,6 +39,9 @@
     "title": {
       "type": "string",
       "required": false
+    },
+    "image": {
+      "type": "string"
     }
   }
 }
