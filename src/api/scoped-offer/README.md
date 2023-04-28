@@ -1,0 +1,1 @@
+This endpoint shows varying degrees of information for an offer based on who is making the request.

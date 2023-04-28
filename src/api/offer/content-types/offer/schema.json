@@ -8,39 +8,33 @@
     "description": ""
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "card": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::card.card"
-    },
-    "price_cents": {
-      "type": "integer"
-    },
-    "uid": {
-      "type": "uid"
-    },
-    "status": {
-      "type": "enumeration",
-      "enum": [
-        "available",
-        "bought",
-        "unwanted"
-      ]
-    },
-    "owner": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
-    },
     "title": {
-      "type": "string",
-      "required": false
+      "type": "string"
     },
     "image": {
+      "type": "string",
+      "default": "https://placehold.co/1280x1080?text=no+image+available"
+    },
+    "priceCents": {
+      "type": "integer"
+    },
+    "invoiceRecipientUrl": {
+      "type": "string"
+    },
+    "invoiceInvoicerUrl": {
+      "type": "string"
+    },
+    "winnerName": {
+      "type": "string"
+    },
+    "winnerColor": {
+      "type": "string"
+    },
+    "winnerId": {
       "type": "string"
     }
   }

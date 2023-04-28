@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "bot_twitch_tokens",
+  "info": {
+    "singularName": "bot-twitch-token",
+    "pluralName": "bot-twitch-tokens",
+    "displayName": "Bot Twitch Token",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "accessToken": {
+      "type": "string",
+      "required": true
+    },
+    "refreshToken": {
+      "type": "string",
+      "required": true
+    },
+    "obtainmentTimestamp": {
+      "type": "datetime"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "expiresIn": {
+      "type": "biginteger"
+    }
+  }
+}

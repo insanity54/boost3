@@ -10,5 +10,5 @@ module.exports = ({ env }) => ({
   webhooks: {
     populateRelations: env.bool('WEBHOOKS_POPULATE_RELATIONS', false),
   },
-  url: env('', 'https://boost3.sbtp.xyz')
+  url: env('STRAPI_URL', 'https://boost3.sbtp.xyz')
 });

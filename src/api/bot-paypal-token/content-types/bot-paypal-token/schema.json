@@ -1,0 +1,37 @@
+{
+  "kind": "singleType",
+  "collectionName": "bot_paypal_tokens",
+  "info": {
+    "singularName": "bot-paypal-token",
+    "pluralName": "bot-paypal-tokens",
+    "displayName": "Bot Paypal Token",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "accessToken": {
+      "type": "string"
+    },
+    "expiresIn": {
+      "type": "biginteger"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "appId": {
+      "type": "string"
+    },
+    "nonce": {
+      "type": "string"
+    },
+    "tokenType": {
+      "type": "string"
+    },
+    "endpoint": {
+      "type": "string"
+    }
+  }
+}
