@@ -9,6 +9,7 @@ module.exports = {
 
     function scopeOffer (offerRecord, user) {
       let scopedOffer = {}
+      console.log(scopedOffer)
 
       scopedOffer.id = offerRecord.id
       scopedOffer.title = offerRecord.title
