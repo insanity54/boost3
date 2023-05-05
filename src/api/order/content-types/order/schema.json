@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "Order",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "awaitingPayment",
+        "awaitingShipment",
+        "delivered",
+        "disputed"
+      ],
+      "default": "awaitingPayment",
+      "required": true
+    },
+    "paypalOrderId": {
+      "type": "string",
+      "required": true
+    },
+    "offers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::offer.offer",
+      "mappedBy": "order"
+    }
+  }
+}

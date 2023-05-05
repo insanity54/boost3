@@ -2,29 +2,83 @@
 
 
 module.exports = {
-  async order(ctx) {
+  async createPaypalOrder(ctx) {
     // create a paypal order
 
-    strapi.log.info('buy/order controller invoked!')
+    strapi.log.info('buy/createPaypalOrder controller invoked!')
 
     // * [x] reject unauthorized
     const { user } = ctx.state;
     if (!user) return ctx.badRequest('reeeeeeeeeeee');
 
+    strapi.log.info(`user:${user.id}`)
+
     // * [ ] get a list of all the offers the requesting user has won
     const wonOffers = await strapi.entityService.findMany('api::offer.offer', {
         filters: {
-          winner: user.id
+          winnerId: user.twitchId
         },
     })
 
-    const idk = strapi.service('api::buy.buy').order();
+    strapi.log.info(`wonOffers:${JSON.stringify(wonOffers)}`)
+
+    const shippingFee = 342
+    const value = ''+(wonOffers.reduce((acc, offer) => acc + offer.priceCents, shippingFee)/100).toFixed(2)
+    strapi.log.info(`value:${value}`)
+
+    const paypalOrder = await strapi.service('api::buy.buy').order(value);
+    strapi.log.info(JSON.stringify(paypalOrder))
+
+    // create order record
+    await strapi.entityService.create('api::order.order', {
+      data: {
+        status: 'awaitingPayment',
+        paypalOrderId: paypalOrder.id,
+        offers: {
+          connect: wonOffers.map((o) => o.id)
+        }
+      }
+    })
+
+    ctx.body = paypalOrder
+  },
+  async capturePaypalOrder(ctx) {
+    strapi.log.info('buy/capturePaypalOrder controller invoked!')
+
+    console.log(ctx)
+    const { paypalOrderId } = ctx.request.body
+
+    console.log(`the paypalOrderId is ${paypalOrderId}`)
+    if (paypalOrderId === undefined) throw new Error('paypalOrderId was not passed in the body')
+
+    // use the orders api to capture payment for an order
+    const idk = await strapi.service('api::buy.buy').capture(paypalOrderId);
+    strapi.log.info('lets look at response from paypal')
     strapi.log.info(JSON.stringify(idk))
 
-    // * [ ] order the data for usage in paypal order api
-    // * [ ] call buy.order service
-    // * [ ] handle the paypal response
-    ctx.body = 'ok'
+    strapi.log.info('lets update the order record')
+    strapi.log.info(`paypalOrderId:${paypalOrderId}`)
+    // update order record
+    const order = await strapi.entityService.findMany('api::order.order', {
+      filters: {
+        paypalOrderId: {
+          '$eq': paypalOrderId
+        }
+      },
+      limit: 1
+    })
+
+    strapi.log.info(`we got a matching order ${JSON.stringify(order)}`)
+
+    await strapi.entityService.update('api::order.order', order[0].id, {
+      data: {
+        status: 'awaitingShipment',
+        paypalOrderId: paypalOrderId
+      }
+    })
+
+    ctx.body = idk
+
   },
   async claim(ctx) {
     // DEPRECATED

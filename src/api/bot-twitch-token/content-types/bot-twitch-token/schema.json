@@ -14,11 +14,11 @@
   "attributes": {
     "accessToken": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "refreshToken": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "obtainmentTimestamp": {
       "type": "datetime"

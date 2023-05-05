@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "paypal_keys",
+  "info": {
+    "singularName": "paypal-key",
+    "pluralName": "paypal-keys",
+    "displayName": "PaypalKey",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "clientId": {
+      "type": "string",
+      "required": true
+    },
+    "clientSecret": {
+      "type": "string",
+      "required": true
+    },
+    "endpoint": {
+      "type": "string",
+      "required": true,
+      "default": "https://api-m.sandbox.paypal.com"
+    }
+  }
+}

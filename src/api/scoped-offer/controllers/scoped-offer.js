@@ -29,7 +29,10 @@ module.exports = {
     const { user } = ctx.state; // get the authenticated user from the request context
     
     let featuredOffer = await strapi.entityService.findOne('api::offer.offer', id, {
-      populate: { winner: true },
+      populate: { 
+        winner: true,
+        order: true
+      },
       fields: [
         'priceCents', 
         'title',
@@ -37,16 +40,24 @@ module.exports = {
         'id',
         'winnerName',
         'winnerColor',
-        'winnerId'
+        'winnerId',
+        'order',
       ]
     })
 
+
+    console.log(`the requesting user twitch id is ${user.twitchId} and the featuredOffer winnerId is ${featuredOffer.winnerId}`)
+
+    if (featuredOffer === null) {
+      ctx.body = '[]'
+    }
+
     // if user other than winner
-    if (!user || user.id !== featuredOffer.winnerId) {
+    else if (!user || user.twitchId !== featuredOffer.winnerId) {
       ctx.body = JSON.stringify([scopeOffer(featuredOffer)])
     }
 
-    else if (user.id === featuredOffer.winnerId) {
+    else if (user.twitchId === featuredOffer.winnerId) {
       // get all offers this user has won
       let offerRecords = await strapi.entityService.findMany('api::offer.offer', {
         fields: [
@@ -61,7 +72,7 @@ module.exports = {
           'winnerColor',
         ],
         filters: {
-          winnerId: user.id
+          winnerId: user.twitchId
         }
       })
 
